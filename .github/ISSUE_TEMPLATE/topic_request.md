@@ -6,6 +6,20 @@ labels: topic
 assignees: ''
 
 ---
+## Process checklist
+- [ ] scope refinement/stakeholder research
+- [ ] outline / review
+- [ ] content research + dev’t
+- [ ] content draft / review
+- [ ] final draft / PR on github
+
+## Responsibilties
+
+**Author:**  
+**Supported by:**  
+**Reviewers:**  
+**Approver:**  
+
 
 ## User Stories
 
