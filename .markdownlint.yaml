@@ -19,3 +19,6 @@ MD001: false
 
 # sometimes you want emphasis instead of a header
 MD036: false
+
+# bare URLs required in GTFS spec
+MD034: false

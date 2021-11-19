@@ -11,10 +11,10 @@ Transit riders deserve to know as much information as possible when they plan th
 !!! warning "Fares v2 not yet fully supported"
     Fares v2 is not yet supported by all trip planning applications.  
     Trip planning applications which support portions of Fares v2 include:
-   
+
     - Transit App
 
-    [More details about which features are adopted supported.](gtfs-fares.md#what-gtfs-files-does-the-fare-information-live-in) 
+    [More details about which features are adopted supported.](gtfs-fares.md#what-gtfs-files-does-the-fare-information-live-in)
 
 The rest of this Playbook entry contains information on:
 
@@ -122,10 +122,10 @@ Clipper and TAP are both stored value cards, and each would have its own row. Ca
     All fare products (e.g. a day pass) must be entered twice in fare_products.txt if there are two possible fare containers (or lack thereof) for the products.  
 
     The most common example of two possible fare containers is a paper pass and a digital pass.
-    
-    In this case, the digital day pass (e.g. a Connect card) is defined in fare_containers.txt but the paper day pass is not.  Both options have their own separate entry in fare_products.txt. This tells the consuming application that the same day pass can be bought and used in two unique ways. 
-    
-    Failing to enter in all fare products twice conveys that a rider can ONLY buy either a paper day pass or a digital day pass on a reloadable Connect card (depending on whether fare_container is defined or not). In reality, riders have both options available to them so the fare products must be entered twice. 
+
+    In this case, the digital day pass (e.g. a Connect card) is defined in fare_containers.txt but the paper day pass is not.  Both options have their own separate entry in fare_products.txt. This tells the consuming application that the same day pass can be bought and used in two unique ways.
+
+    Failing to enter in all fare products twice conveys that a rider can ONLY buy either a paper day pass or a digital day pass on a reloadable Connect card (depending on whether fare_container is defined or not). In reality, riders have both options available to them so the fare products must be entered twice.
 
 ??? example "fare_containers.txt for AC Transit (San Francisco Bay Area)"
     | fare_container_id | fare_container_name | minimum_initial_purchase | amount | currency | rider_category_id |
@@ -165,24 +165,24 @@ This file is required if the provider offers fare products, and should not be pu
     | duration_start    | Required if the product is valid for some set period of time, and that time is based on defined periods of time (like calendar months) | Options include:<ul><li>0: If the product needs to wait until some date to become active, such as the first of the month</li><li>1:If the product can be used immediately after purchase.</li></ul>                                                                                                                                                                                                                                                                                                                                                                                           |
     | duration_amount   | Required if the product is valid for some set period of time.                                                                          | This field describes the number of time units that the product is valid. For example, a pass that’s valid for 31 days would be “31” or  pass that’s valid for 1 month would be “1”.                                                                                                                                                                                                                                                                                                                                                                                                           |
     | duration_unit     |                                                                                                                                        | If the product is valid for some set period of time, this field is required. This field describes the time unit that the product is valid. The options are:<ul><li>0: Seconds</li><li>1: Minutes</li><li>2: Hours</li><li>3: Days, e.g. a pass that is valid for 1 day</li><li>4: Weeks</li><li>5: Months, e.g. a pass that is valid for 1 month </li><li>6: Years</li></ul>                                                                                                                                                                                                                  |
-    | duration_type     | Required if the product is valid for some set period of time.                                                                          | This field describes the window for which a fare product is valid. Options are: <ul><li>1: If the window is based on the calendar. e.g. A day pass is activated at 10 AM. The pass is valid until midnight</li><li>2: If the window is based on the time of activation. e.g. A day pass is activated at 10 AM. The pass is valid until 9:59 AM the next day.                                                                                                                                                                                                                                  |                                                                                                                                        
+    | duration_type     | Required if the product is valid for some set period of time.                                                                          | This field describes the window for which a fare product is valid. Options are: <ul><li>1: If the window is based on the calendar. e.g. A day pass is activated at 10 AM. The pass is valid until midnight</li><li>2: If the window is based on the time of activation. e.g. A day pass is activated at 10 AM. The pass is valid until 9:59 AM the next day.                                                                                                                                                                                                                                  |  
     | amount            | Required                                                                                                                               | The cost of the pass. Don’t include a “$”.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    |
     | currency          | Required                                                                                                                               | `USD` in the United States.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
 
 === "One set of fares products"
     If there is only one set of fare products available, those products are assumed to be from the agency of the dataset we are working in.  
-   
+
     !!! example "One set of fare products: Placer County Day Passes"
 
-        Day passes in the Placer County gtfs dataset are assumed to be Placer County's fare products. 
-        
+        Day passes in the Placer County gtfs dataset are assumed to be Placer County's fare products.
+
         In these cases, name and ID do not need to be specified, although it is helpful if they are. ('Day Pass Senior' is sufficient and does not need to be further specified as 'Placer County Day Pass Senior').
 
 === "Two or more sets of fare products"
     If there are two or more sets of fare products available, name and ID must be detailed and specify which agency a rider is buying a product from.  
 
     !!! example "Two sets of fare prodcuts: Placer County and SacRT Passes"
-   
+
         'Placer County Day Pass Senior' and  'Sacramento Regional Transit Day Pass Senior'.  
 
 ??? tip "Scrip Tickets: Coupons, Paper Stored Value"
@@ -269,7 +269,7 @@ Additional information:
 
 ### Fare rules: `fare_leg_rules.txt`
 
-Once all the components of the fare policy are defined, how are they actually supposed to work together? 
+Once all the components of the fare policy are defined, how are they actually supposed to work together?
 
 `fare_leg_rules.txt` unifies the policies between the transit network files (e.g. `routes.txt`, `stops.txt`) and other fare policy files (e.g. [fare_products.txt](gtfs-fares.md/#fare-products-fare_productstxt)) and assigns prices. This file can be quite long.
 
@@ -331,23 +331,23 @@ fare_transfer_rules.txt defines fare rules and discounts for trips involving mor
     Any regular fare is NOT assumed to contain a free transfer. A regular fare only contains the fare. Therefore, transfers must be defined when they are an add-on/perk.
 
     Transfers SHOULD be explicitly defined in `fare_transfer_rules.txt` when they are considered a special bonus of paying a one-way fare.
-     
+
     Imagine the following scenario: A rider would board Bus A, pay their fare in cash, and receive a paper transfer ticket from the bus driver for use when they transfer to and board Bus B.  In this scenario, defining a free transfer tells the app that the rider received a paper transfer ticket.
 
 ??? tip "Passes assume free transfers"
 
-    Any time-based pass (daily, weekly, monthly, etc.) is assumed to offer unlimited rides. Example: Using a Santa Monica day pass to transfer from Santa Monica Route 1 to Santa Monica Route 2. 
-    
+    Any time-based pass (daily, weekly, monthly, etc.) is assumed to offer unlimited rides. Example: Using a Santa Monica day pass to transfer from Santa Monica Route 1 to Santa Monica Route 2.
+
     This does not apply to fare booklets. Example: a Caltrain 10-ride booklet.
 
     Makes sure all the passes accepted for payment should be listed in the `fare_leg_rules.txt`.
 
 ??? tip "Code symmetrical transfer behaviors once"
 
-    If a transfer has the same behavior in either directions (e.g. Agency A -> Agency B is the same as Agency B -> Agency A), write only one transfer record and indicate this behavior with `is_symmetrical` = 1. 
-    
-    This only applies when the transfer rules, including cost, are the same forward as they are backward. 
-    
+    If a transfer has the same behavior in either directions (e.g. Agency A -> Agency B is the same as Agency B -> Agency A), write only one transfer record and indicate this behavior with `is_symmetrical` = 1.
+
+    This only applies when the transfer rules, including cost, are the same forward as they are backward.
+
     CAUTION: Many regionally connected agencies may offer free transfers TO an agency, but that other agency does not offer free transfers in reciprocation. In this case, only transfers from Agency A to Agency B would be defined in Agency B's feed, with `is_symmetrical` = 0.
 
 ??? example "fare_transfer_rules.txt for Nevada County Connects"
@@ -388,12 +388,12 @@ If there are no fares, you only need `fare_leg_rules.txt` to describe the fare p
 
 Route-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in two places:  
 
-- [`routes.txt`](gtfs-fares.md#differentiate-fares-across-routes-in-routestxt): `network_id` specifies which routes belong to the network.
-- [`fare_leg_rules.txt`](gtfs-fares.md#describe-transfer-rules-using-fare_transfer_rulestxt): `network_id` is referenced for the fare rule that applies to that group of routes.
+* [`routes.txt`](gtfs-fares.md#differentiate-fares-across-routes-in-routestxt): `network_id` specifies which routes belong to the network.
+* [`fare_leg_rules.txt`](gtfs-fares.md#describe-transfer-rules-using-fare_transfer_rulestxt): `network_id` is referenced for the fare rule that applies to that group of routes.
 
 ??? example "Higher express route fares"
     In this example, the 95X Express route costs more.  
-    
+
     To differentiate which routes are express or not, `routes.network_id` assigns each route to either “local” or “express”.
 
     | route_long_name                     | route_short_name | network_id |
@@ -409,11 +409,11 @@ Route-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in 
 
 If a bus pass is used in `fare_leg_rules.txt`, the `network_id` must either be:
 
-- blank: if pass can be used on ALL networks  
-- have an entry for EVERY network it is valid for  
+* blank: if pass can be used on ALL networks  
+* have an entry for EVERY network it is valid for  
 
 ??? example "Separate commuter and local passes"
-    The El Dorado Transit commuter pass works for local and commuter networks, but the local pass only works on local routes. 
+    The El Dorado Transit commuter pass works for local and commuter networks, but the local pass only works on local routes.
 
     (1) Articulate which routes belong to which network in `routes.network_id`.
 
@@ -426,7 +426,7 @@ If a bus pass is used in `fare_leg_rules.txt`, the `network_id` must either be:
      | :-------------- | :--------- |
      | commuter_pass   | commuter   |
      | commuter_pass   | local      |
-        
+
      Both options are valid and tell the consuming application that the Commuter Pass can be used on both networks.
 
 ### Zone or stop-based fares
@@ -435,8 +435,8 @@ Stop-, or zone-based fares are used if the fare is based on where the rider boar
 
 Zone-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in two places:  
 
-- stops.txt: area_id in dictates the stop, or group of stops (zone) that is applicable.
-- fare_leg_rules.txt: from_area_id, to_area_id and optionally, contains_area_id link a fare rule to the zones in stops.area_id.
+* stops.txt: area_id in dictates the stop, or group of stops (zone) that is applicable.
+* fare_leg_rules.txt: from_area_id, to_area_id and optionally, contains_area_id link a fare rule to the zones in stops.area_id.
 
 ??? tip "Transitioning from Fares v1: zone_id vs area_id"
 
@@ -452,7 +452,7 @@ Zone-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in t
     ![](/img/contains_area_A.png){ align=left }
     Image shows the boarding and alighting stops, along with four fare zones: 1, 2, 3, 4.
 
-    Leaving `contains_area_id` blank indicates that there is no "thru" requirement and any travel between zone 1 and 4 would be subject to the fare leg rule. 
+    Leaving `contains_area_id` blank indicates that there is no "thru" requirement and any travel between zone 1 and 4 would be subject to the fare leg rule.
 
     - `from_area_id` = 1  
     - `to_area_id` = 4
@@ -489,8 +489,8 @@ Zone-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in t
 
     With two zones, all fares will have to be defined three times in `fare_leg_rules.txt`:
 
-    * `fare_leg_name: 1-1`: Trips within zone 1 
-    * `fare_leg_name: 2-2`: Trips within zone 2 
+    * `fare_leg_name: 1-1`: Trips within zone 1
+    * `fare_leg_name: 2-2`: Trips within zone 2
     * `fare_leg_name: 1-2`: Trips between zones 1 and 2
 
     | `leg_group_id` | `fare_leg_name` | `from_area_id` | `to_area_id` | `is_symmetrical` | `fare_product_id`  | `rider_category_id` | `amount` | `currency` |
@@ -516,19 +516,19 @@ Zone-based fares are represented in [GTFS-Fares](https://bit.ly/gtfs-fares) in t
 
 ### Distance-based fares
 
-Some fares are based on absolute distance. This is different from stop-based fares, where certain stop combinations have specified prices. 
+Some fares are based on absolute distance. This is different from stop-based fares, where certain stop combinations have specified prices.
 
 === "Distance types"
 
     ![Distance Type Example](/img/distance_type_ex.png){ align=left }
-    Image shows the transit route as a grey arc with flags representing stops. 
-    
-    The green flag labeled “board” is where the rider boards and starts their trip. 
-    
+    Image shows the transit route as a grey arc with flags representing stops.
+
+    The green flag labeled “board” is where the rider boards and starts their trip.
+
     It passes through several gray flagged-stops before the rider alights at the red flagged-stop.
 
 === "Stops-based"
-    `distance_type = 0` indicates that distance should be calculated based on the number of stops the rider passes through. 
+    `distance_type = 0` indicates that distance should be calculated based on the number of stops the rider passes through.
 
     ![Distance Type Example](/img/distance_type_0.png){ align=left }
 
@@ -553,12 +553,12 @@ Some fares are based on absolute distance. This is different from stop-based far
         - Going up to 15 miles stops costs $2
 
         `fare_leg_rules.txt`:
-        
+
         | `distance_type` | `min_distance` | `max_distance` | `amount` |
         | :-------------- | :------------- | :------------- | :------- |
         | 1               | 0              | 4              | 1        |
         | 1               | 4              | 15             | 2        |
-        
+
     Note that this table doesn’t define a unit, and it uses whatever unit is defined in `shapes.shape_dist_traveled`. This is usually feet, but is important to confirm.
 
 ### Passes + Transit Cards
@@ -569,13 +569,13 @@ Even if a pass can be used for transit routes outside of the routes defined in t
 
 ??? example "El Dorado and Sacramento RT Combo Pass."
 
-    For El Dorado's fares dataset, only El Dorado's `routes.txt` file needs to be included. 
-    In this situation, the data will explain which El Dorado routes the pass can be used on. 
-    It will NOT define which Sac RT routes the pass can be used on, even though the pass can be used on them. 
-    This is okay. 
+    For El Dorado's fares dataset, only El Dorado's `routes.txt` file needs to be included.
+    In this situation, the data will explain which El Dorado routes the pass can be used on.
+    It will NOT define which Sac RT routes the pass can be used on, even though the pass can be used on them.
+    This is okay.
 
     Although the data will not explicitly state which "outside agency" (Sac RT) routes this combo pass can be used on, if the fare product name is descriptive enough it should point riders in the right direction.  It implies:
-        
+
     > This combo pass can be used for the Sac RT system, in some capacity, but I don't know which specific routes
 
 #### Rider-based Cards
@@ -604,7 +604,7 @@ Many cards (container_ids) are issued based on rider type(rider_cateogory_id), l
 
 #### Passes with asymmetrical reciprocity"
 
-Sometimes a premium pass or ticket is sold which can be used on a whole network whereas a discounted pass is only valid on part of the network.  This can be represented at either the route (network_id) or zone level so long as they are defined within the same GTFS dataset. 
+Sometimes a premium pass or ticket is sold which can be used on a whole network whereas a discounted pass is only valid on part of the network.  This can be represented at either the route (network_id) or zone level so long as they are defined within the same GTFS dataset.
 
 ??? example "Santa Maria Area Transit Passes and Breeze Passes"
 
@@ -652,7 +652,7 @@ This process is best done in a spreadsheet like Excel or Google Sheets.
 ??? tip "Transitioning from Fares v1 to Fares v2? Copy area_id to zone_id"
     If the Fares v1 GTFS data exists already and has been built correctly, existing `zone_id` values can be directly copied to `area_id`.  
 
-    The `area_id` column will be used in `fare_leg_rules` to craft stops-based fares. 
+    The `area_id` column will be used in `fare_leg_rules` to craft stops-based fares.
 
 ### Export from a spreadsheet
 
@@ -683,20 +683,25 @@ Transit App has developed and released an [open-source GTFS Fares v2 validator](
 ![fares validator command line photo](/img/fares-validator.png "Transit App Fares validator in use"){ align=left }
 _An example of the validator finding two errors in a set of Fares v2 data._
 
-??? tip "Install and setup GTFS Fares v2 Validator" 
+??? tip "Install and setup GTFS Fares v2 Validator"
     1. Verify that Python 3 is installed on your machine by opening the command prompt (PC) or terminal (mac) and entering:
+
         ```bash
         python3
         ```
-    If it is not found, install the [latest Python release](https://www.python.org/downloads/). 
+
+    If it is not found, install the [latest Python release](https://www.python.org/downloads/).
     2. **Download** Transit App’s Fares V2 Validator from [GitHub](https://github.com/TransitApp/gtfs-fares-v2-validator).<br> Under the Code dropdown, there is an option to download the validator as a zipped folder.  
     2. Unzip and place the folder on your machine in a place that can be easily accessed such as your desktop or downloads folder.  
 
-     
 ??? tip "Using GTFS Fares v2 Validator"
 
-    1. Change the active directory or your command prompt (PC) or terminal (Mac) to the downloaded Fares V2 validator by using the command `cd [path where validator downloaded]`.  
-    
+    1. Change the active directory or your command prompt (PC) or terminal (Mac) to the downloaded Fares V2 validator by using the command:
+
+        ```bash
+        cd [path where validator downloaded]
+        ```  
+
         Example:
         ```bash
         cd C:\Users\S152973\Desktop\gtfs-fares-v2-validator-master
@@ -708,11 +713,11 @@ _An example of the validator finding two errors in a set of Fares v2 data._
         python3 validate.py [path to folder containing fares v2 data] -o report.txt
         ```
 
-        Example: 
+        Example:
         ``` bash
         python3 validate.py C:\Users\S152973\Desktop\Fares_v2 -o report.txt
         ```
-    3. `report.txt` in GTFS Fares V2 Validator folder contains all errors found in the GTFS fares v2 data. 
+    3. `report.txt` in GTFS Fares V2 Validator folder contains all errors found in the GTFS fares v2 data.
 
 ## QA/QCing GTFS Fares v2 Data
 
@@ -736,18 +741,18 @@ Once you have the fares files coded, you need to include the TXT files in the .z
      The following vendors can and will publish your GTFS Fares v2 Data using their existing GTFS data pipelines:
 
      * Trillium Solutions
-     * Interline 
+     * Interline
 
     The following vendors are working to include GTFS Fares v2 data in their data pipelines:
 
      * GMV/Synchromatics  
      * Optibus  
-     * Trapeze 
+     * Trapeze
 
-    Don’t see the vendor that publishes your GTFS data on the list? 
+    Don’t see the vendor that publishes your GTFS data on the list?
 
      * Check with us to see if we are already talking with them: [gtfsrt@dot.ca.gov](mailto:gtfsrt@dot.ca.gov)
-     * Ask them!  Most vendors have been willing to adjust to clients’ needs for this. 
+     * Ask them!  Most vendors have been willing to adjust to clients’ needs for this.
 
 ## Example Fares v2 Datasets
 
@@ -778,4 +783,4 @@ What resources exist to help with Fares v2?
 
 ## Where can I get help?
 
-If the transit service you want to share fares for is in California, Caltrans staff can help you code, troubleshoot, and publish your data.  Inquire at [gtfsrt@dot.ca.gov](mailto:gtfsrt@dot.ca.gov). 
+If the transit service you want to share fares for is in California, Caltrans staff can help you code, troubleshoot, and publish your data.  Inquire at [gtfsrt@dot.ca.gov](mailto:gtfsrt@dot.ca.gov).
