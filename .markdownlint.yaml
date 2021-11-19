@@ -16,3 +16,6 @@ MD041: false
 
 # sometimes you want to increment headers by more than one
 MD001: false
+
+# sometimes you want emphasis instead of a header
+MD036: false

@@ -1,9 +1,6 @@
 # Transit Technology Playbook
 
-
-
 ## Contributing
-
 
 ## License
 
